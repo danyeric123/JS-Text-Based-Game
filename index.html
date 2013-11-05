@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+<title>Go Fish</title>
+</head>
+<body style="font-family:courier">
+<div id="wrapper">
+	<h1>Fishing</h1>
+	<div id="lake">
+	<h2>This is a Lake</h2>
+	</div>
+	
+	<div id="pond">
+	<h2>This is a Pond</h2>	
+	</div>
+	
+	<div id="stream">
+	<h2>This is a Stream</h2>	
+	</div>	
+	
+	<div id="fishing" style="position:fixed; top:20px; right:20px; display:none;">
+		[~~~~~~~~~~~~~~~~~~~O~~~~~~~~~~~~~~~~~~~]<br/>
+		[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]<br/>
+		[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]<br/>
+		[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;J&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]<br/>
+		[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;><>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]<br/>
+		<br />
+		Fishing...	
+	</div>
+	<div id="fish-count" style="position:fixed; top:135px; right:305px;">
+	<h3>Fish Caught</h3>
+		Bass: <span id="bass-count">0</span><br/>
+		Perch: <span id="perch-count">0</span><br/>
+		Trout: <span id="trout-count">0</span><br />
+		Catfish: <span id="catfish-count">0</span><br />
+		Carp: <span id="carp-count">0</span><br />
+		Bluegill: <span id="bluegill-count">0</span><br />
+		Walleye: <span id="walleye-count">0</span> <br />
+	</div>
+<button id="start">Start</button>
+<button id="stop">Stop</button>
+<button id="fish">Go Fish</button>
+<script src="fish.js"></script>
+</div>	
+</body>	
+</html>
