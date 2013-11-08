@@ -1,18 +1,23 @@
 var fishArray = [];
 
-function CreateFish (fish, water, fishId) {
+function CreateFish (fish, water, amount, chance, weight) {
 	this.fish = fish;
 	this.water = water;
+	this.amount = amount;
+	this.chance = chance;
+	this.weight = weight;
 	fishArray.push(this);
+	
+	console.log("A " + fish + " has been been born.")
 }
 
-var bass = new CreateFish("bass", "lake");
-var carp = new CreateFish("carp", "lake");
-var perch = new CreateFish("perch", "lake");
-var trout = new CreateFish("trout", "stream");
-var walleye = new CreateFish("walleye", "stream");
-var catfish = new CreateFish("catfish", "pond");
-var bluegill = new CreateFish("bluegill", "pond");
+var bass = new CreateFish("bass", "lake", 0, 2, 8);
+var carp = new CreateFish("carp", "lake", 0, 4, 3);
+var perch = new CreateFish("perch", "lake", 0, 5, 5);
+var trout = new CreateFish("trout", "stream", 0, 2, 9);
+var walleye = new CreateFish("walleye", "stream", 0, 8, 10);
+var catfish = new CreateFish("catfish", "pond", 0, 6, 2);
+var bluegill = new CreateFish("bluegill", "pond", 0, 9, 1);
 
 //CreateFish.prototype.announce = function () {return "A " + this.fish + " has been added to your " + this.water + ".";};
 //CreateFish.prototype.kill = function () {return "Your " + this.fish + " has died.";};
@@ -28,7 +33,7 @@ function addToDiv () {
 };
 
 function gameState(state) {
-	var timerInterval = 4000;
+	var timerInterval = 1000;
 		if (state == "start") {
 			gameInterval = setInterval(function() {addToDiv()}, timerInterval);
 			alert("Stocking fish!");
@@ -40,68 +45,93 @@ function gameState(state) {
 	}
 }
 
-function goFish() {
-	var fishNodes = document.getElementsByTagName('p');
-	var caughtFish = Math.floor(fishNodes.length * Math.random());
-	var fishNodeTimeout = Math.floor(Math.random() * 15) * 1000;
-	
-	document.getElementById("fishing").style.display = "block";
-	
-	function fishNodeTime () {
-		document.getElementById("fishing").style.display = "none";
-		document.getElementById("start").disabled = false;
-		
-		var fishPrefix = fishNodes[caughtFish].innerHTML.slice(2,6);
-		
-		//current quickfix for updating fishcount
-		switch(fishPrefix) {
-			case "bass":
-			var bassCount = parseInt(document.getElementById("bass-count").innerHTML);
-			document.getElementById("bass-count").innerHTML = bassCount + 1;
-			alert("You caught a glorious bass!");
-			break;
-			case "carp":
-			var carpCount = parseInt(document.getElementById("carp-count").innerHTML);
-			document.getElementById("carp-count").innerHTML = carpCount + 1;
-			alert("You caught a filthy carp!");
-			break;
-			case "perc":
-			var perchCount = parseInt(document.getElementById("perch-count").innerHTML);
-			document.getElementById("perch-count").innerHTML = perchCount + 1;
-			alert("You caught a small perch!");
-			break;
-			case "trou":
-			var troutCount = parseInt(document.getElementById("trout-count").innerHTML);
-			document.getElementById("trout-count").innerHTML = troutCount + 1;
-			alert("You caught a slimy trout!");
-			break;
-			case "wall":
-			var walleyeCount = parseInt(document.getElementById("walleye-count").innerHTML);
-			document.getElementById("walleye-count").innerHTML = walleyeCount + 1;
-			alert("You caught a weird looking walleye!");
-			break;
-			case "catf":
-			var catfishCount = parseInt(document.getElementById("catfish-count").innerHTML);
-			document.getElementById("catfish-count").innerHTML = catfishCount + 1;
-			alert("You caught a dangerous catfish!");
-			break;
-			case "blue":
-			var bluegillCount = parseInt(document.getElementById("bluegill-count").innerHTML);
-			document.getElementById("bluegill-count").innerHTML = bluegillCount + 1;
-			alert("You caught a tiny bluegill!");
-			break;
-			default:
-			alert("nothing caught");
-			break;		
-		}
-		
-	fishNodes[caughtFish].parentNode.removeChild(fishNodes[caughtFish]);
-	
-	}
-	
-	setTimeout(fishNodeTime, fishNodeTimeout);
+function countTotalFish () {
+	var totalFish = 0;
+	for (i=0; i<fishArray.length; i++) {
+		var gorkaNodes = fishArray[i].amount;
+		totalFish += gorkaNodes;
+		document.getElementById("total-fish-count").innerHTML = totalFish;
+	};
 }
-	
+
+function goFish() {
+        var fishNodes = document.getElementsByTagName('p');
+        var caughtFish = Math.floor(fishNodes.length * Math.random());
+        var fishNodeTimeout = Math.floor(Math.random() * 15) * 1000;
+        
+        document.getElementById("fishing").style.display = "block";
+        
+        function fishNodeTime () {
+                document.getElementById("fishing").style.display = "none";
+                document.getElementById("start").disabled = false;
+                
+                var fishPrefix = fishNodes[caughtFish].innerHTML.slice(2,6);
+                
+                //current quickfix for updating fishcount
+                switch(fishPrefix) {
+                        case "bass":
+	                        var bassCount = parseInt(document.getElementById("bass-count").innerHTML);
+	                        bassCount = bassCount + 1;
+	                        fishArray[0].amount = bassCount;
+	                        document.getElementById("bass-count").innerHTML = bassCount;
+	                        alert("You caught a glorious bass!" + bassCount);
+                        break;
+                        case "carp":
+	                        var carpCount = parseInt(document.getElementById("carp-count").innerHTML);
+	                        carpCount = carpCount + 1;
+	                        fishArray[1].amount = carpCount;
+	                        document.getElementById("carp-count").innerHTML = carpCount;
+	                        alert("You caught a filthy carp!" + carpCount);
+                        break;
+                        case "perc":
+	                        var perchCount = parseInt(document.getElementById("perch-count").innerHTML);
+	                        perchCount = perchCount + 1;
+	                        fishArray[2].amount = perchCount;
+	                        document.getElementById("perch-count").innerHTML = perchCount;
+	                        alert("You caught a small perch!" + perchCount);
+                        break;
+                        case "trou":
+	                        var troutCount = parseInt(document.getElementById("trout-count").innerHTML);
+	                        troutCount = troutCount + 1;
+	                        fishArray[3].amount = troutCount;
+	                        document.getElementById("trout-count").innerHTML = troutCount;
+	                        alert("You caught a slimy trout!");
+	                    break;
+	                    case "wall":
+                        	var walleyeCount = parseInt(document.getElementById("walleye-count").innerHTML);
+                        	walleyeCount = walleyeCount + 1;
+                        	fishArray[4].amount = walleyeCount;
+	                        document.getElementById("walleye-count").innerHTML = walleyeCount;
+	                        alert("You caught a weird looking walleye!");
+	                    break;
+	                    case "catf":
+                        	var catfishCount = parseInt(document.getElementById("catfish-count").innerHTML);
+                        	catfishCount = catfishCount + 1;
+                        	fishArray[5].amount = catfishCount;
+	                        document.getElementById("catfish-count").innerHTML = catfishCount;
+	                        alert("You caught a dangerous catfish!");
+	                    break;
+	                    case "blue":
+                       	    var bluegillCount = parseInt(document.getElementById("bluegill-count").innerHTML);
+	                        bluegillCount = bluegillCount + 1;
+	                        fishArray[6].amount = bluegillCount;
+	                        document.getElementById("bluegill-count").innerHTML = bluegillCount;
+	                        alert("You caught a tiny bluegill!");
+	                    break;
+                        default:
+                        	alert("nothing caught");
+                        break;                
+                       
+                }
+                
+        fishNodes[caughtFish].parentNode.removeChild(fishNodes[caughtFish]);
+        countTotalFish();
+        
+        }
+        
+setTimeout(fishNodeTime, fishNodeTimeout);
+    
+}
 
 document.getElementById("start").addEventListener("click", function() {gameState("start")}, true);
 document.getElementById("stop").addEventListener("click", function() {gameState("stop")}, true);
