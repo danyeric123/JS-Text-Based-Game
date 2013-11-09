@@ -9,7 +9,7 @@ function CreateFish (fish, water, amount, chance, weight) {
 	
 	fishArray.push(this);
 	
-	console.log("A " + fish + " has been been born.")
+	console.log("A " + fish + " has been been born.");
 }
 
 var bass = new CreateFish("bass", "lake", 0, 2, 8);
@@ -23,13 +23,25 @@ var bluegill = new CreateFish("bluegill", "pond", 0, 9, 1);
 
 //CreateFish.prototype.announce = function () {return "A " + this.fish + " has been added to your " + this.water + ".";};
 //CreateFish.prototype.kill = function () {return "Your " + this.fish + " has died.";};
+
 CreateFish.prototype.points = function () {
 	var locPoints = document.getElementById("total-points-count");
 	var initPoints = parseInt(locPoints.innerHTML);
 	
 	locPoints.innerHTML = initPoints + this.weight;
 	
-	}
+};
+
+CreateFish.prototype.updateCount = function (fCount) {
+	var fishCount = parseInt(document.getElementById(fCount + "-count").innerHTML);
+	
+	fishCount = fishCount + 1;
+	fishArray[0].amount = fishCount;
+	document.getElementById(fCount + "-count").innerHTML = fishCount;
+
+	this.points();
+	
+};
 
 function addToDiv () {
 	var that = fishArray[Math.floor(fishArray.length * Math.random())];
@@ -39,13 +51,13 @@ function addToDiv () {
 	if (document.getElementsByTagName('p').length > 9) {
 		clearInterval(gameInterval);
 		}
-};
+}
 
 function gameState(state) {
 	var timerInterval = 1000;
 	
 	if (state == "start") {
-		gameInterval = setInterval(function() {addToDiv()}, timerInterval);
+		gameInterval = setInterval(function() {addToDiv();}, timerInterval);
 		alert("Stocking fish!");
 			document.getElementById("start").disabled = true;
 	} else {
@@ -61,7 +73,7 @@ function countTotalFish () {
 		var gorkaNodes = fishArray[i].amount;
 		totalFish += gorkaNodes;
 		document.getElementById("total-fish-count").innerHTML = totalFish;
-	};
+	}
 }
 
 function goFish() {
@@ -80,73 +92,31 @@ function goFish() {
 			//current quickfix for updating fishcount
 		switch(fishPrefix) {
 			case "bass":
-				var bassCount = parseInt(document.getElementById("bass-count").innerHTML);
-				bassCount = bassCount + 1;
-				fishArray[0].amount = bassCount;
-				document.getElementById("bass-count").innerHTML = bassCount;
-	                        
-				bass.points();
-	                        
+				bass.updateCount("bass");
 				alert("You caught a glorious bass!");
 			break;
 			case "carp":
-				var carpCount = parseInt(document.getElementById("carp-count").innerHTML);
-				carpCount = carpCount + 1;
-				fishArray[1].amount = carpCount;
-				document.getElementById("carp-count").innerHTML = carpCount;
-	                        
-				carp.points();
-	                        
+				carp.updateCount("carp");
 				alert("You caught a filthy carp!");
 			break;
 			case "perc":
-				var perchCount = parseInt(document.getElementById("perch-count").innerHTML);
-				perchCount = perchCount + 1;
-				fishArray[2].amount = perchCount;
-				document.getElementById("perch-count").innerHTML = perchCount;
-	                        
-				perch.points();
-	                        
+				perch.updateCount("perch");
 				alert("You caught a small perch!");
 			break;
 			case "trou":
-				var troutCount = parseInt(document.getElementById("trout-count").innerHTML);
-				troutCount = troutCount + 1;
-				fishArray[3].amount = troutCount;
-				document.getElementById("trout-count").innerHTML = troutCount;
-	                        
-				trout.points();
-	                        
+				trout.updateCount("trout");
 				alert("You caught a slimy trout!");
 			break;
 			case "wall":
-				var walleyeCount = parseInt(document.getElementById("walleye-count").innerHTML);
-				walleyeCount = walleyeCount + 1;
-				fishArray[4].amount = walleyeCount;
-				document.getElementById("walleye-count").innerHTML = walleyeCount;
-	                        
-				walleye.points();
-	                        
+				walleye.updateCount("walleye");
 				alert("You caught a weird looking walleye!");
 			break;
 			case "catf":
-				var catfishCount = parseInt(document.getElementById("catfish-count").innerHTML);
-				catfishCount = catfishCount + 1;
-				fishArray[5].amount = catfishCount;
-				document.getElementById("catfish-count").innerHTML = catfishCount;
-	                        
-				catfish.points();
-	                        
+				catfish.updateCount("catfish");
 				alert("You caught a dangerous catfish!");
 			break;
 			case "blue":
-				var bluegillCount = parseInt(document.getElementById("bluegill-count").innerHTML);
-				bluegillCount = bluegillCount + 1;
-				fishArray[6].amount = bluegillCount;
-				document.getElementById("bluegill-count").innerHTML = bluegillCount;
-	                        
-				bluegill.points();
-	                        
+				bluegill.updateCount("bluegill");     
 				alert("You caught a tiny bluegill!");
 			break;
 			default:
@@ -163,6 +133,6 @@ setTimeout(fishNodeTime, fishNodeTimeout);
     
 }
 
-document.getElementById("start").addEventListener("click", function() {gameState("start")}, true);
-document.getElementById("stop").addEventListener("click", function() {gameState("stop")}, true);
+document.getElementById("start").addEventListener("click", function() {gameState("start");}, true);
+document.getElementById("stop").addEventListener("click", function() {gameState("stop");}, true);
 document.getElementById("fish").addEventListener("click", goFish, true);
