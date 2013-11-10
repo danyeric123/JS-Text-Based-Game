@@ -6,6 +6,11 @@
 <body style="font-family:courier">
 <div id="wrapper">
 	<h1>Fishing</h1>
+
+	<button id="start">Stock</button>
+	<button id="stop">Stop Stocking</button>
+	<button id="fish">Go Fish</button>
+	
 	<div id="lake">
 	<h2>This is a Lake</h2>
 	</div>
@@ -17,31 +22,35 @@
 	<div id="stream">
 	<h2>This is a Stream</h2>	
 	</div>	
-	
-	<div id="fishing" style="position:fixed; top:20px; right:20px; display:none;">
-		[~~~~~~~~~~~~~~~~~~~O~~~~~~~~~~~~~~~~~~~]<br/>
-		[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]<br/>
-		[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]<br/>
-		[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;J&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]<br/>
-		[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;><>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]<br/>
-		<br />
-		Fishing...	
+	<div id="fish-container" style="position:fixed; right:20px; top:20px;">
+		<div id="fishing" style="visibility:hidden;">
+			[~~~~~~~~~~~~~~~~~~~O~~~~~~~~~~~~~~~~~~~]<br/>
+			[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]<br/>
+			[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]<br/>
+			[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;J&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]<br/>
+			[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;><>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]<br/>
+			<br />
+			Fishing...	
+		</div>
+		<div id="fish-count">
+		<h3>Fish Caught</h3>
+			Bass: <span id="bass-count">0</span><br/>
+			Perch: <span id="perch-count">0</span><br/>
+			Trout: <span id="trout-count">0</span><br />
+			Catfish: <span id="catfish-count">0</span><br />
+			Carp: <span id="carp-count">0</span><br />
+			Bluegill: <span id="bluegill-count">0</span><br />
+			Walleye: <span id="walleye-count">0</span> <br />
+			Shad: <span id="shad-count">0</span> <br />
+			Salmon: <span id="salmon-count">0</span> <br />
+			Rockbass: <span id="rockbass-count">0</span> <br />
+			Sucker: <span id="sucker-count">0</span> <br /><br />
+		<div id ="total-fish">Total Fish: <span id="total-fish-count">0</span></div>
+		<div id ="total-points">Total Points: <span id="total-points-count">0</span></div>
+		<br/>
+		<div id="fisherman-level">Level: <span id="fisherman-level-count">Shore Fisherman</span></div>
+		</div>
 	</div>
-	<div id="fish-count" style="position:fixed; top:135px; right:305px;">
-	<h3>Fish Caught</h3>
-		Bass: <span id="bass-count">0</span><br/>
-		Perch: <span id="perch-count">0</span><br/>
-		Trout: <span id="trout-count">0</span><br />
-		Catfish: <span id="catfish-count">0</span><br />
-		Carp: <span id="carp-count">0</span><br />
-		Bluegill: <span id="bluegill-count">0</span><br />
-		Walleye: <span id="walleye-count">0</span> <br /><br />
-	<div id ="total-fish">Total Fish: <span id="total-fish-count">0</span></div>
-	<div id ="total-points">Total Points: <span id="total-points-count">0</span></div>
-	</div>
-<button id="start">Start</button>
-<button id="stop">Stop</button>
-<button id="fish">Go Fish</button>
 <script src="fish.js"></script>
 </div>	
 </body>	

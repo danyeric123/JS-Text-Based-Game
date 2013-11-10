@@ -1,4 +1,13 @@
+function FisherPerson () {
+		this.level = 0;
+		this.multiplier = 1;
+}
+
+var fisherMan = new FisherPerson();
+
 var fishArray = [];
+
+CreateFish.prototype = fisherMan;
 
 function CreateFish (fish, water, amount, chance, weight) {
 	this.fish = fish;
@@ -12,13 +21,19 @@ function CreateFish (fish, water, amount, chance, weight) {
 	console.log("A " + fish + " has been been born.");
 }
 
-var bass = new CreateFish("bass", "lake", 0, 2, 8);
-var carp = new CreateFish("carp", "lake", 0, 4, 3);
-var perch = new CreateFish("perch", "lake", 0, 5, 5);
-var trout = new CreateFish("trout", "stream", 0, 2, 9);
-var walleye = new CreateFish("walleye", "stream", 0, 8, 10);
-var catfish = new CreateFish("catfish", "pond", 0, 6, 2);
-var bluegill = new CreateFish("bluegill", "pond", 0, 9, 1);
+CreateFish.prototype.parent = FisherPerson.prototype;
+
+var bass = new CreateFish("bass", "lake", 0, 2, 10);
+var carp = new CreateFish("carp", "lake", 0, 1, 4);
+var perch = new CreateFish("perch", "lake", 0, 1, 6);
+var trout = new CreateFish("trout", "stream", 0, 3, 10);
+var walleye = new CreateFish("walleye", "stream", 0, 3, 12);
+var catfish = new CreateFish("catfish", "pond", 0, 2, 4);
+var bluegill = new CreateFish("bluegill", "pond", 0, 0, 2);
+var shad = new CreateFish("shad", "stream", 0, 0, 2);
+var salmon = new CreateFish("salmon", "lake", 0, 3, 20);
+var rockbass = new CreateFish("rock bass", "pond", 0, 0, 1);
+var sucker = new CreateFish("sucker", "stream", 0, 0, 1);
 //var whiteWhale = new CreateFish("white whale", "ocean", 0, 1, 200)
 
 //CreateFish.prototype.announce = function () {return "A " + this.fish + " has been added to your " + this.water + ".";};
@@ -28,7 +43,26 @@ CreateFish.prototype.points = function () {
 	var locPoints = document.getElementById("total-points-count");
 	var initPoints = parseInt(locPoints.innerHTML);
 	
+	this.weight = this.weight * this.multiplier;
 	locPoints.innerHTML = initPoints + this.weight;
+	
+	//adjust level and score multiplier
+	if (parseInt(locPoints.innerHTML) > 100 && this.level === 0) {	
+		document.getElementById("fisherman-level-count").innerHTML = "Kayak Fisherman";
+		fisherMan.multiplier = 2;
+		fisherMan.level = 1;
+		alert("You've been upgraded to a kayak fisherman!");
+	} else if (parseInt(locPoints.innerHTML) > 200 && this.level === 1) {
+		document.getElementById("fisherman-level-count").innerHTML = "Boat Fisherman";
+		fisherMan.multiplier = 3;
+		alert("You now own a boat!");
+		fisherMan.level = 2;
+	} else if (parseInt(locPoints.innerHTML) > 300 && this.level === 2) {
+		document.getElementById("fisherman-level-count").innerHTML = "Ocean King";
+		fisherMan.multiplier = 3;
+		alert("Get that white whale.");
+		fisherMan.level = 3;
+	}
 	
 };
 
@@ -36,7 +70,7 @@ CreateFish.prototype.updateCount = function (fCount) {
 	var fishCount = parseInt(document.getElementById(fCount + "-count").innerHTML);
 	
 	fishCount = fishCount + 1;
-	fishArray[0].amount = fishCount;
+	this.amount = fishCount;
 	document.getElementById(fCount + "-count").innerHTML = fishCount;
 
 	this.points();
@@ -44,17 +78,26 @@ CreateFish.prototype.updateCount = function (fCount) {
 };
 
 function addToDiv () {
-	var that = fishArray[Math.floor(fishArray.length * Math.random())];
-	var newFishie = document.getElementById(that.water);
-	newFishie.innerHTML = newFishie.innerHTML + "<p>A " + that.fish + " lives in a " + that.water + ".</p>";
-		
-	if (document.getElementsByTagName('p').length > 9) {
-		clearInterval(gameInterval);
+	var fishNewArray = [];
+
+	var randomGenerator = Math.floor(Math.random() * 4);
+	
+	function meetsChance(elem) {
+		return elem.chance <= randomGenerator;
 		}
+	
+	fishNewArray = fishArray.filter(meetsChance);
+	var that = fishNewArray[Math.floor(fishNewArray.length * Math.random())];
+	var newFishie = document.getElementById(that.water);
+	newFishie.innerHTML = newFishie.innerHTML + "<p class=\"" + that.fish + "\">A " + that.fish + " lives in a " + that.water + ".</p>";
+		
+	if (document.getElementsByTagName('p').length > 19) {
+		clearInterval(gameInterval);
+	}
 }
 
 function gameState(state) {
-	var timerInterval = 1000;
+	var timerInterval = 300;
 	
 	if (state == "start") {
 		gameInterval = setInterval(function() {addToDiv();}, timerInterval);
@@ -79,18 +122,18 @@ function countTotalFish () {
 function goFish() {
 	var fishNodes = document.getElementsByTagName('p');
 	var caughtFish = Math.floor(fishNodes.length * Math.random());
-	var fishNodeTimeout = Math.floor(Math.random() * 15) * 1000;
+	var fishNodeTimeout = Math.floor(Math.random() * 15) * 100;
         
-	document.getElementById("fishing").style.display = "block";
+	document.getElementById("fishing").style.visibility = "visible";
         
 	function fishNodeTime () {
-		document.getElementById("fishing").style.display = "none";
+		document.getElementById("fishing").style.visibility = "hidden";
 		document.getElementById("start").disabled = false;
                 
-		var fishPrefix = fishNodes[caughtFish].innerHTML.slice(2,6);
+		var fishClass = fishNodes[caughtFish].className;
                 
-			//current quickfix for updating fishcount
-		switch(fishPrefix) {
+		//current quickfix for updating fishcount
+		switch(fishClass) {
 			case "bass":
 				bass.updateCount("bass");
 				alert("You caught a glorious bass!");
@@ -99,25 +142,41 @@ function goFish() {
 				carp.updateCount("carp");
 				alert("You caught a filthy carp!");
 			break;
-			case "perc":
+			case "perch":
 				perch.updateCount("perch");
 				alert("You caught a small perch!");
 			break;
-			case "trou":
+			case "trout":
 				trout.updateCount("trout");
 				alert("You caught a slimy trout!");
 			break;
-			case "wall":
+			case "walleye":
 				walleye.updateCount("walleye");
 				alert("You caught a weird looking walleye!");
 			break;
-			case "catf":
+			case "catfish":
 				catfish.updateCount("catfish");
 				alert("You caught a dangerous catfish!");
 			break;
-			case "blue":
+			case "bluegill":
 				bluegill.updateCount("bluegill");     
 				alert("You caught a tiny bluegill!");
+			break;
+			case "shad":
+				shad.updateCount("shad");     
+				alert("You caught a finicky shad!");
+			break;
+			case "salmon":
+				salmon.updateCount("salmon");     
+				alert("You caught a tasty salmon!");
+			break;
+			case "rock bass":
+				rockbass.updateCount("rockbass");     
+				alert("You caught an annoying rock bass!");
+			break;
+			case "sucker":
+				sucker.updateCount("sucker");     
+				alert("You caught a super gross sucker!");
 			break;
 			default:
 				alert("nothing caught");
