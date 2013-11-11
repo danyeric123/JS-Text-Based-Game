@@ -21,7 +21,7 @@ function CreateFish (fish, water, amount, chance, weight) {
 	console.log("A " + fish + " has been been born.");
 }
 
-CreateFish.prototype.parent = FisherPerson.prototype;
+//CreateFish.prototype.parent = FisherPerson.prototype;
 
 var bass = new CreateFish("bass", "lake", 0, 2, 10);
 var carp = new CreateFish("carp", "lake", 0, 1, 4);
